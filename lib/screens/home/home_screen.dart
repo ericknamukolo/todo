@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_bloc/screens/home/add_todo_screen.dart';
 import 'package:todo_bloc/utils/colors.dart';
+import 'package:todo_bloc/utils/navigation.dart';
 import 'package:todo_bloc/utils/texts.dart';
 
 import '../../widgets/todo_card.dart';
@@ -11,7 +14,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () =>
+            Navigation.go(screen: AddTodoScreen(), context: context),
         backgroundColor: kPrimary,
         child: Icon(Icons.add_rounded, color: Colors.white),
       ),
@@ -26,9 +30,10 @@ class HomeScreen extends StatelessWidget {
           spacing: 10,
           children: [
             Text(
-              'Task Groups',
+              'Task Groups (24)',
               style: kTitleTextStyle,
             ),
+            TodoCard(),
             TodoCard(),
           ],
         ),

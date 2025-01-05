@@ -11,6 +11,7 @@ class TodoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(vertical: 5.0),
       padding: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
           color: Colors.white,
