@@ -1,4 +1,4 @@
-import 'package:todo_bloc/models/task.dart';
+import 'package:todo_bloc/data/models/task.dart';
 
 class Todo {
   String id;

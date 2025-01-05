@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () =>
             Navigation.go(screen: AddTodoScreen(), context: context),
-        backgroundColor: kPrimary,
+        backgroundColor: kPrimaryColor,
         child: Icon(Icons.add_rounded, color: Colors.white),
       ),
       appBar: AppBar(

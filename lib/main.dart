@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_bloc/screens/home/cubit/todo_cubit.dart';
 import 'package:todo_bloc/screens/home/home_screen.dart';
 
 void main() {
@@ -10,8 +12,11 @@ class ToDo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomeScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => TodoCubit()),
+      ],
+      child: MaterialApp(home: HomeScreen()),
     );
   }
 }

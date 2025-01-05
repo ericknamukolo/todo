@@ -30,10 +30,10 @@ class TodoCard extends StatelessWidget {
             padding: EdgeInsets.all(10.0),
             margin: EdgeInsets.only(right: 10.0),
             decoration: BoxDecoration(
-              color: kPrimary.withOpacity(.1),
+              color: kPrimaryColor.withOpacity(.1),
               borderRadius: BorderRadius.circular(10.0),
             ),
-            child: Icon(Icons.notes_rounded, color: kPrimary),
+            child: Icon(Icons.notes_rounded, color: kPrimaryColor),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,8 +46,8 @@ class TodoCard extends StatelessWidget {
           CircularProgressIndicator(
             strokeCap: StrokeCap.round,
             value: 0.8,
-            backgroundColor: kPrimary.withOpacity(.1),
-            color: kPrimary,
+            backgroundColor: kPrimaryColor.withOpacity(.1),
+            color: kPrimaryColor,
           ),
         ],
       ),
