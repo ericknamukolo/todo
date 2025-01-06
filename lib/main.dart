@@ -16,7 +16,10 @@ class ToDo extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => TodoCubit()),
       ],
-      child: MaterialApp(home: HomeScreen()),
+      child: MaterialApp(
+        home: HomeScreen(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
