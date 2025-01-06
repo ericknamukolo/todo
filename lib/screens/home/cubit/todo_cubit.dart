@@ -87,7 +87,7 @@ class TodoCubit extends Cubit<TodoState> {
   String getCompletion(String todoId) {
     List<Task> tasks = state.todos.firstWhere((e) => e.id == todoId).tasks;
     int completedTasks = tasks.where((e) => e.complete).length;
-
+    if (tasks.isEmpty) return '0.0';
     return ((completedTasks / tasks.length) * 100).toStringAsFixed(1);
   }
 }

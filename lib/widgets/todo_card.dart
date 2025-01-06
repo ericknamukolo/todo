@@ -62,7 +62,7 @@ class TodoCard extends StatelessWidget {
               color: double.parse(
                           context.read<TodoCubit>().getCompletion(todo.id)) ==
                       100.0
-                  ? Colors.green
+                  ? Colors.greenAccent
                   : kPrimaryColor,
             ),
           ],
