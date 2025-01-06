@@ -12,12 +12,26 @@ class TodoCubit extends Cubit<TodoState> {
   void addTodo(Todo todo, context) async {
     try {
       FocusScope.of(context).unfocus();
-      emit(TodoLoading());
+      emit(TodoLoading(todos: state.todos));
       //Fake request
       await TodoRepo.createTodo();
       List<Todo> newTodos = [...state.todos];
+
       newTodos.add(todo);
-      emit(TodoLoaded());
+
+      emit(TodoLoaded(todos: newTodos));
+    } catch (e) {
+      emit(TodoError(message: e.toString()));
+    }
+  }
+
+  void getTodo() async {
+    try {
+      emit(TodoLoading(todos: state.todos));
+      //Fake request
+      await TodoRepo.getTodo();
+
+      emit(TodoLoaded(todos: state.todos));
     } catch (e) {
       emit(TodoError(message: e.toString()));
     }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:todo_bloc/data/models/todo.dart';
 
 import '../utils/colors.dart';
 import '../utils/texts.dart';
 
 class TodoCard extends StatelessWidget {
-  const TodoCard({
-    super.key,
-  });
+  final Todo todo;
+  const TodoCard({super.key, required this.todo});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class TodoCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Office Project', style: kBodyTitleTextStyle),
+              Text(todo.title, style: kBodyTitleTextStyle),
               Text('22 Tasks / 25%', style: kBodyTextStyle),
             ],
           ),

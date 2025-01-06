@@ -9,15 +9,24 @@ sealed class TodoState extends Equatable {
   List<Object> get props => [todos];
 }
 
-final class TodoInitial extends TodoState {}
+final class TodoInitial extends TodoState {
+  const TodoInitial({super.todos});
+}
 
-final class TodoLoading extends TodoState {}
+final class TodoLoading extends TodoState {
+  const TodoLoading({required super.todos});
+}
 
-final class TodoLoaded extends TodoState {}
+final class TodoLoaded extends TodoState {
+  const TodoLoaded({required super.todos});
+}
 
 final class TodoError extends TodoState {
   final String message;
-  const TodoError({required this.message});
+  const TodoError({
+    required this.message,
+    super.todos,
+  });
   @override
   List<Object> get props => [message];
 }

@@ -1,14 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_bloc/screens/home/add_todo_screen.dart';
+import 'package:todo_bloc/screens/home/cubit/todo_cubit.dart';
 import 'package:todo_bloc/utils/colors.dart';
 import 'package:todo_bloc/utils/navigation.dart';
 import 'package:todo_bloc/utils/texts.dart';
+import 'package:todo_bloc/widgets/loading_indicator.dart';
 
 import '../../widgets/todo_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    context.read<TodoCubit>().getTodo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +37,39 @@ class HomeScreen extends StatelessWidget {
         title: Text('To Do'),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(15.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 10,
-          children: [
-            Text(
-              'Task Groups (24)',
-              style: kTitleTextStyle,
-            ),
-            TodoCard(),
-            TodoCard(),
-          ],
-        ),
+      body: BlocConsumer<TodoCubit, TodoState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          if (state is TodoLoading) {
+            return LoadingIndicator();
+          }
+          if (state is TodoLoaded) {
+            return state.todos.isEmpty
+                ? Center(
+                    child: Text('No tasks', style: kTitleTextStyle),
+                  )
+                : Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 10,
+                      children: [
+                        Text(
+                          'Task Groups (${state.todos.length})',
+                          style: kTitleTextStyle,
+                        ),
+                        ListView.builder(
+                          itemBuilder: (_, i) => TodoCard(todo: state.todos[i]),
+                          itemCount: state.todos.length,
+                          shrinkWrap: true,
+                        ),
+                      ],
+                    ),
+                  );
+          }
+
+          return SizedBox();
+        },
       ),
     );
   }
