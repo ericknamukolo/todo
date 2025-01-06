@@ -11,4 +11,16 @@ class Todo {
     required this.title,
     this.tasks = const [],
   });
+
+  Todo copyWith({
+    String? id,
+    String? title,
+    List<Task>? tasks,
+  }) {
+    return Todo(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      tasks: tasks ?? this.tasks,
+    );
+  }
 }

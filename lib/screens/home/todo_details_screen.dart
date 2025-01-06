@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_bloc/data/models/task.dart';
 import 'package:todo_bloc/data/models/todo.dart';
 import 'package:todo_bloc/screens/home/cubit/todo_cubit.dart';
-import 'package:todo_bloc/utils/colors.dart';
 import 'package:todo_bloc/widgets/custom_textfield.dart';
 
 import '../../utils/texts.dart';
@@ -36,8 +34,10 @@ class TodoDetailsScreen extends StatelessWidget {
                           child: Text('No Tasks', style: kTitleTextStyle),
                         )
                       : ListView.builder(
-                          itemBuilder: (_, i) =>
-                              TaskCard(task: todo.tasks[i], todoId: todoId),
+                          itemBuilder: (_, i) {
+                            final task = todo.tasks[i];
+                            return TaskCard(task: task, todoId: todoId);
+                          },
                           itemCount: todo.tasks.length,
                           shrinkWrap: true,
                         ),

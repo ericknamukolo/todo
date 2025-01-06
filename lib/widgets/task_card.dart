@@ -6,7 +6,7 @@ import 'package:todo_bloc/utils/texts.dart';
 
 import '../utils/colors.dart';
 
-class TaskCard extends StatefulWidget {
+class TaskCard extends StatelessWidget {
   final Task task;
   final String todoId;
   const TaskCard({
@@ -16,33 +16,23 @@ class TaskCard extends StatefulWidget {
   });
 
   @override
-  State<TaskCard> createState() => _TaskCardState();
-}
-
-class _TaskCardState extends State<TaskCard> {
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         children: [
           Icon(
-            widget.task.complete
+            task.complete
                 ? Icons.check_circle_rounded
                 : Icons.check_circle_outline_outlined,
-            color: widget.task.complete ? kPrimaryColor : Colors.grey[300],
+            color: task.complete ? kPrimaryColor : Colors.grey[300],
             size: 28,
           ),
           SizedBox(width: 10),
-          Text(widget.task.title, style: kBodyTextStyle),
+          Text(task.title, style: kBodyTextStyle),
           const Spacer(),
           GestureDetector(
-            onLongPress: () {
-              context
-                  .read<TodoCubit>()
-                  .deleteTask(widget.todoId, widget.task.id);
-              setState(() {});
-            },
+            onTap: () => context.read<TodoCubit>().deleteTask(todoId, task.id),
             child: Icon(
               Icons.delete_outline_rounded,
               color: Colors.red,

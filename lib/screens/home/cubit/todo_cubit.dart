@@ -44,14 +44,12 @@ class TodoCubit extends Cubit<TodoState> {
     List<Todo> oldTodos = [...state.todos];
     final taskIndex = oldTodos.indexWhere((e) => e.id == id);
     final newtasks = [...oldTodos[taskIndex].tasks, newTask];
-    oldTodos[taskIndex].tasks = newtasks;
+    oldTodos[taskIndex] = oldTodos[taskIndex].copyWith(tasks: newtasks);
 
     emit(TodoLoaded(todos: oldTodos));
   }
 
   void deleteTask(String todoId, String taskId) {
-    //Fake request
-
     List<Todo> oldTodos = [...state.todos];
 
     final taskIndex = oldTodos.indexWhere((e) => e.id == todoId);
@@ -59,7 +57,7 @@ class TodoCubit extends Cubit<TodoState> {
     final newtasks = [...oldTodos[taskIndex].tasks];
     newtasks.removeWhere((e) => e.id == taskId);
 
-    oldTodos[taskIndex].tasks = newtasks;
+    oldTodos[taskIndex] = oldTodos[taskIndex].copyWith(tasks: newtasks);
 
     emit(TodoLoaded(todos: oldTodos));
   }
