@@ -36,8 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('To Do'),
         centerTitle: true,
       ),
-      body: BlocConsumer<TodoCubit, TodoState>(
-        listener: (context, state) {},
+      body: BlocBuilder<TodoCubit, TodoState>(
         builder: (context, state) {
           if (state is TodoLoading) {
             return LoadingIndicator();

@@ -21,15 +21,22 @@ class TaskCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         children: [
-          Icon(
-            task.complete
-                ? Icons.check_circle_rounded
-                : Icons.check_circle_outline_outlined,
-            color: task.complete ? kPrimaryColor : Colors.grey[300],
-            size: 28,
+          GestureDetector(
+            onTap: () =>
+                context.read<TodoCubit>().toggleCompletion(todoId, task.id),
+            child: Icon(
+              task.complete
+                  ? Icons.check_circle_rounded
+                  : Icons.check_circle_outline_outlined,
+              color: task.complete ? kPrimaryColor : Colors.grey[300],
+              size: 28,
+            ),
           ),
           SizedBox(width: 10),
-          Text(task.title, style: kBodyTextStyle),
+          Text(task.title,
+              style: kBodyTextStyle.copyWith(
+                decoration: task.complete ? TextDecoration.lineThrough : null,
+              )),
           const Spacer(),
           GestureDetector(
             onTap: () => context.read<TodoCubit>().deleteTask(todoId, task.id),

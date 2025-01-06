@@ -61,4 +61,26 @@ class TodoCubit extends Cubit<TodoState> {
 
     emit(TodoLoaded(todos: oldTodos));
   }
+
+  void toggleCompletion(String todoId, String taskId) {
+    try {
+      List<Todo> oldTodos = [...state.todos];
+      final todoIndex = oldTodos.indexWhere((e) => e.id == todoId);
+      final taskIndex =
+          oldTodos[todoIndex].tasks.indexWhere((e) => e.id == taskId);
+
+      final currentStatus = oldTodos[todoIndex].tasks[taskIndex].complete;
+
+      final updatedTasks = [...oldTodos[todoIndex].tasks];
+
+      updatedTasks[taskIndex] =
+          updatedTasks[taskIndex].copyWith(complete: !currentStatus);
+
+      oldTodos[todoIndex] = oldTodos[todoIndex].copyWith(tasks: updatedTasks);
+
+      emit(TodoLoaded(todos: oldTodos));
+    } catch (e) {
+      emit(TodoError(message: e.toString()));
+    }
+  }
 }

@@ -14,7 +14,13 @@ class TodoDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController task = TextEditingController();
-    return BlocBuilder<TodoCubit, TodoState>(
+    return BlocConsumer<TodoCubit, TodoState>(
+      listener: (context, state) {
+        if (state is TodoError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message, style: kBodyTextStyle)));
+        }
+      },
       builder: (context, state) {
         Todo todo = state.todos.firstWhere((e) => e.id == todoId);
         return Scaffold(
@@ -35,8 +41,8 @@ class TodoDetailsScreen extends StatelessWidget {
                         )
                       : ListView.builder(
                           itemBuilder: (_, i) {
-                            final task = todo.tasks[i];
-                            return TaskCard(task: task, todoId: todoId);
+                            return TaskCard(
+                                task: todo.tasks[i], todoId: todoId);
                           },
                           itemCount: todo.tasks.length,
                           shrinkWrap: true,
