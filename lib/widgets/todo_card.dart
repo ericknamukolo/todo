@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_bloc/data/models/todo.dart';
 import 'package:todo_bloc/screens/home/todo_details_screen.dart';
 import 'package:todo_bloc/utils/navigation.dart';
 
+import '../screens/home/cubit/todo_cubit.dart';
 import '../utils/colors.dart';
 import '../utils/texts.dart';
 
@@ -45,7 +47,9 @@ class TodoCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(todo.title, style: kBodyTitleTextStyle),
-                Text('${todo.tasks.length} Tasks / 25%', style: kBodyTextStyle),
+                Text(
+                    '${todo.tasks.length} Tasks / ${context.read<TodoCubit>().getCompletion(todo.id)}',
+                    style: kBodyTextStyle),
               ],
             ),
             const Spacer(),

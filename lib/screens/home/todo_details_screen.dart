@@ -20,6 +20,9 @@ class TodoDetailsScreen extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.message, style: kBodyTextStyle)));
         }
+        if (state is TodoLoaded) {
+          task.clear();
+        }
       },
       builder: (context, state) {
         Todo todo = state.todos.firstWhere((e) => e.id == todoId);
@@ -54,7 +57,6 @@ class TodoDetailsScreen extends StatelessWidget {
                       context
                           .read<TodoCubit>()
                           .addTask(todoId, task.text.trim(), context);
-                      task.clear();
                     }
                   },
                   child: Text('Add Task'),
