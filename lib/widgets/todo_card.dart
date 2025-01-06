@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_bloc/data/models/todo.dart';
+import 'package:todo_bloc/screens/home/todo_details_screen.dart';
+import 'package:todo_bloc/utils/navigation.dart';
 
 import '../utils/colors.dart';
 import '../utils/texts.dart';
@@ -10,10 +12,13 @@ class TodoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 5.0),
-      padding: EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
+    return InkWell(
+      onTap: () => Navigation.go(
+          screen: TodoDetailsScreen(todoId: todo.id), context: context),
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 5.0),
+        padding: EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20.0),
           boxShadow: [
@@ -23,33 +28,35 @@ class TodoCard extends StatelessWidget {
               offset: Offset(1.0, 0.1),
               spreadRadius: 6.0,
             ),
-          ]),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(10.0),
-            margin: EdgeInsets.only(right: 10.0),
-            decoration: BoxDecoration(
-              color: kPrimaryColor.withOpacity(.1),
-              borderRadius: BorderRadius.circular(10.0),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.only(right: 10.0),
+              decoration: BoxDecoration(
+                color: kPrimaryColor.withOpacity(.1),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Icon(Icons.notes_rounded, color: kPrimaryColor),
             ),
-            child: Icon(Icons.notes_rounded, color: kPrimaryColor),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(todo.title, style: kBodyTitleTextStyle),
-              Text('22 Tasks / 25%', style: kBodyTextStyle),
-            ],
-          ),
-          const Spacer(),
-          CircularProgressIndicator(
-            strokeCap: StrokeCap.round,
-            value: 0.8,
-            backgroundColor: kPrimaryColor.withOpacity(.1),
-            color: kPrimaryColor,
-          ),
-        ],
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(todo.title, style: kBodyTitleTextStyle),
+                Text('${todo.tasks.length} Tasks / 25%', style: kBodyTextStyle),
+              ],
+            ),
+            const Spacer(),
+            CircularProgressIndicator(
+              strokeCap: StrokeCap.round,
+              value: 0.8,
+              backgroundColor: kPrimaryColor.withOpacity(.1),
+              color: kPrimaryColor,
+            ),
+          ],
+        ),
       ),
     );
   }

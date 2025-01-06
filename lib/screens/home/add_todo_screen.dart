@@ -12,7 +12,7 @@ class AddTodoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController title = TextEditingController();
-    TextEditingController des = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Add'),
@@ -37,19 +37,17 @@ class AddTodoScreen extends StatelessWidget {
             child: Column(
               children: [
                 CustomTextField(hint: 'Title', controller: title),
-                CustomTextField(hint: 'Description', controller: des),
                 const Spacer(),
                 if (state is TodoLoading)
                   LoadingIndicator()
                 else
                   TextButton(
                     onPressed: () {
-                      if (title.text.isNotEmpty && des.text.isNotEmpty) {
+                      if (title.text.isNotEmpty) {
                         context.read<TodoCubit>().addTodo(
                               Todo(
                                 id: DateTime.now().toIso8601String(),
                                 title: title.text.trim(),
-                                description: des.text.trim(),
                               ),
                               context,
                             );

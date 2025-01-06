@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: TextField(
+        textCapitalization: TextCapitalization.words,
         controller: controller,
         decoration: InputDecoration(
           filled: true,

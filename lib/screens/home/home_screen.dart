@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (state is TodoLoaded) {
             return state.todos.isEmpty
                 ? Center(
-                    child: Text('No tasks', style: kTitleTextStyle),
+                    child: Text('No Todo', style: kTitleTextStyle),
                   )
                 : Padding(
                     padding: EdgeInsets.all(15.0),
