@@ -48,16 +48,22 @@ class TodoCard extends StatelessWidget {
               children: [
                 Text(todo.title, style: kBodyTitleTextStyle),
                 Text(
-                    '${todo.tasks.length} Tasks / ${context.read<TodoCubit>().getCompletion(todo.id)}',
+                    '${todo.tasks.length} Tasks / ${context.read<TodoCubit>().getCompletion(todo.id)} %',
                     style: kBodyTextStyle),
               ],
             ),
             const Spacer(),
             CircularProgressIndicator(
               strokeCap: StrokeCap.round,
-              value: 0.8,
+              value: double.parse(
+                      context.read<TodoCubit>().getCompletion(todo.id)) /
+                  100,
               backgroundColor: kPrimaryColor.withOpacity(.1),
-              color: kPrimaryColor,
+              color: double.parse(
+                          context.read<TodoCubit>().getCompletion(todo.id)) ==
+                      100.0
+                  ? Colors.green
+                  : kPrimaryColor,
             ),
           ],
         ),

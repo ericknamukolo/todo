@@ -88,6 +88,6 @@ class TodoCubit extends Cubit<TodoState> {
     List<Task> tasks = state.todos.firstWhere((e) => e.id == todoId).tasks;
     int completedTasks = tasks.where((e) => e.complete).length;
 
-    return '${(completedTasks / tasks.length) * 100} %';
+    return ((completedTasks / tasks.length) * 100).toStringAsFixed(1);
   }
 }
