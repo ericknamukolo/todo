@@ -25,46 +25,63 @@ class TodoDetailsScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        Todo todo = state.todos.firstWhere((e) => e.id == todoId);
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(todo.title),
-            centerTitle: true,
-          ),
-          body: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Column(
-              spacing: 12,
-              children: [
-                CustomTextField(hint: 'New Task', controller: task),
-                Expanded(
-                  child: todo.tasks.isEmpty
-                      ? Center(
-                          child: Text('No Tasks', style: kTitleTextStyle),
-                        )
-                      : ListView.builder(
-                          itemBuilder: (_, i) {
-                            return TaskCard(
-                                task: todo.tasks[i], todoId: todoId);
-                          },
-                          itemCount: todo.tasks.length,
-                          shrinkWrap: true,
-                        ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    if (task.text.isNotEmpty) {
-                      context
-                          .read<TodoCubit>()
-                          .addTask(todoId, task.text.trim(), context);
-                    }
-                  },
-                  child: Text('Add Task'),
-                ),
+        try {
+          Todo todo = state.todos.firstWhere((e) => e.id == todoId);
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(todo.title),
+              centerTitle: true,
+              actions: [
+                IconButton(
+                    onPressed: () =>
+                        context.read<TodoCubit>().deleteTodo(todoId, context),
+                    icon: Icon(
+                      Icons.delete_rounded,
+                      color: Colors.red,
+                    )),
               ],
             ),
-          ),
-        );
+            body: Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Column(
+                spacing: 12,
+                children: [
+                  CustomTextField(hint: 'New Task', controller: task),
+                  Expanded(
+                    child: todo.tasks.isEmpty
+                        ? Center(
+                            child: Text('No Tasks', style: kTitleTextStyle),
+                          )
+                        : ListView.builder(
+                            itemBuilder: (_, i) {
+                              return TaskCard(
+                                  task: todo.tasks[i], todoId: todoId);
+                            },
+                            itemCount: todo.tasks.length,
+                            shrinkWrap: true,
+                          ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      if (task.text.isNotEmpty) {
+                        context
+                            .read<TodoCubit>()
+                            .addTask(todoId, task.text.trim(), context);
+                      }
+                    },
+                    child: Text('Add Task'),
+                  ),
+                ],
+              ),
+            ),
+          );
+        } catch (e) {
+          return Scaffold(
+            body: Center(
+              child: Text('Todo Not found!', style: kTitleTextStyle),
+            ),
+          );
+        }
       },
     );
   }

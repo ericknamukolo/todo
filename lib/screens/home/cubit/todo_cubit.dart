@@ -62,6 +62,13 @@ class TodoCubit extends Cubit<TodoState> {
     emit(TodoLoaded(todos: oldTodos));
   }
 
+  void deleteTodo(String todoId, context) {
+    List<Todo> oldTodos = [...state.todos];
+    oldTodos.removeWhere((e) => e.id == todoId);
+    Navigator.of(context).pop();
+    emit(TodoLoaded(todos: oldTodos));
+  }
+
   void toggleCompletion(String todoId, String taskId) {
     try {
       List<Todo> oldTodos = [...state.todos];
